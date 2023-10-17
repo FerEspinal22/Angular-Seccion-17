@@ -3,20 +3,27 @@
 
 <div class="row">
   <div class="col">
-    <form autocomplete="off">
+    <!-- ? De esta forma le decimos al HTML que pondremos nuestras propias validaciones, que no las complete -->
+    <form [formGroup]="myForm" (ngSubmit)="onSave()" autocomplete="off">
       <!-- Campo de producto -->
       <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Producto</label>
         <div class="col-sm-9">
+          <!-- ? Los inputs se enlazan a través del FormControlName con los campos que hay en el archivo.ts -->
           <input
             type="text"
             class="form-control"
             placeholder="Nombre del producto"
+            formControlName="name"
           />
 
           <span class="form-text text-danger">
+            This field is required.
+          </span>
+
+          <span class="form-text text-danger">
             <!-- Debe de ser de 3 letras -->
-            error message
+            This field requires a minimum of 3 letters.
           </span>
         </div>
       </div>
@@ -25,10 +32,12 @@
       <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Precio</label>
         <div class="col-sm-9">
+          <!-- ? Los inputs se enlazan a través del FormControlName con los campos que hay en el archivo.ts -->
           <input
             type="number"
             class="form-control"
             placeholder="Precio del producto"
+            formControlName="price"
           />
           <span class="form-text text-danger">
             El precio debe de ser 0 o mayor
@@ -40,10 +49,12 @@
       <div class="mb-3 row">
         <label class="col-sm-3 col-form-label">Existencias</label>
         <div class="col-sm-9">
+          <!-- ? Los inputs se enlazan a través del FormControlName con los campos que hay en el archivo.ts -->
           <input
             type="number"
             class="form-control"
             placeholder="Existencias del producto"
+            formControlName="inStorage"
           />
 
           <span class="form-text text-danger">
@@ -65,22 +76,37 @@
 
 <div class="row">
   <div class="col">
+
+    <!-- ? Se refiere a que se cumplan todas las validaciones del formulario-->
     <span>Valid</span>
-    <pre>{{ "objeto" | json }}</pre>
+    <pre>{{ myForm.valid | json }}</pre>
 
+    <!-- ? Se refiere a que el formulario no se ha manipulado -->
     <span>Pristine</span>
-    <pre>{{ "objeto" | json }}</pre>
+    <pre>{{ myForm.pristine | json }}</pre>
 
+    <!-- ? Se refiere a que el formulario ha sido tocado o no -->
     <span>Touched</span>
-    <pre>{{ "objeto" | json }}</pre>
+    <pre>{{ myForm.touched | json }}</pre>
 
+    <!-- ? Muestra los values del formulario -->
     <span>Value</span>
-    <pre>{{ "objeto" | json }}</pre>
+    <pre>{{ myForm.value | json }}</pre>
 
+    <!-- ? Muestra el precio -->
     <span>Precio</span>
-    <pre>{{ "objeto" | json }}</pre>
+    <pre>{{ myForm.controls['price'].value | json }}</pre>
 
+    <!-- ? Muestra los errores del precio -->
+    <span>Precio - Errors</span>
+    <pre>{{ myForm.controls['price'].errors | json }}</pre>
+
+    <!-- ? Muestra el producto -->
     <span>Producto</span>
-    <pre>{{ "objeto" | json }}</pre>
+    <pre>{{ myForm.controls['name'].value  | json }}</pre>
+
+    <!-- ? Muestra los errores del producto -->
+    <span>Producto - Errors</span>
+    <pre>{{ myForm.controls['name'].errors  | json }}</pre>
   </div>
 </div>
