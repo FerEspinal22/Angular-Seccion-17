@@ -1,13 +1,18 @@
 <h2>Reactivos: <small> Dinámicos </small></h2>
 <hr />
 
-<form autocomplete="off">
+<form [formGroup]="myForm" (ngSubmit)="onSubmit()" autocomplete="off">
   <!-- Nombre -->
   <div class="mb-3 row">
     <label class="col-sm-3 col-form-label">Nombre</label>
     <div class="col-sm-9">
-      <input class="form-control" placeholder="Nombre de la persona" />
-      <span class="form-text text-danger"> error message </span>
+      <input class="form-control" 
+        formControlName="name"
+        placeholder="Nombre de la persona"
+      />
+      <span *ngIf="isValidField('name')" class="form-text text-danger">
+        {{ getFieldError('name') }}
+      </span>
     </div>
   </div>
 
@@ -15,10 +20,18 @@
   <div class="mb-3 row">
     <label class="col-sm-3 col-form-label">Agregar</label>
     <div class="col-sm-9">
-      <div class="input-group">
-        <input class="form-control" placeholder="Agregar favorito" />
 
-        <button class="btn btn-outline-primary" type="button">
+      <div class="input-group">
+        <input 
+          class="form-control" 
+          [formControl]="newFavorite"
+          placeholder="Agregar favorito" 
+        />
+
+        <button (click)="onAddToFavorites()"
+          class="btn btn-outline-primary"
+          type="button"
+        >
           Agregar favorito
         </button>
       </div>
@@ -28,15 +41,31 @@
   <!-- Lista de Juegos Favoritos -->
   <div class="mb-3 row">
     <label class="col-sm-3 col-form-label">Favoritos</label>
-    <div class="col-sm-9">
-      <div class="mb-1">
-        <div class="input-group">
-          <input class="form-control" />
+    <!-- ? formArrayName es para enlazar a un arreglo del formulario -->    
+    <div class="col-sm-9" formArrayName="favoriteGames">
 
-          <button class="btn btn-outline-danger" type="button">Eliminar</button>
+      <!-- Como no es el arreglo de controles, le ponemos .controls para poder acceder a ello. -->
+      <div class="mb-1" *ngFor="let favorite of favoriteGames.controls; let i = index ">
+
+        <div class="input-group">
+          <!-- ? Con el form control enlazamos de forma dinamica -->
+          <input [formControlName]="i" class="form-control" />
+
+          <button 
+            (click)="onDeleteFavorite(i)"
+            class="btn btn-outline-danger" 
+            type="button"
+          >
+            Eliminar
+          </button>
         </div>
-        <span class="form-text text-danger"> Este campo es requerido </span>
+
+        <span *ngIf="isValidFieldInArray( favoriteGames, i )" class="form-text text-danger">
+          Este campo es requerido.
+        </span>
+
       </div>
+
     </div>
   </div>
 

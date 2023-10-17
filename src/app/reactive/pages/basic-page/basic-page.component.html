@@ -17,14 +17,13 @@
             formControlName="name"
           />
 
-          <span class="form-text text-danger">
-            This field is required.
+          <!-- ? En este caso se imprime en pantalla el error si el campo de texto está vacío y si ha sido tocado -->          
+          <span *ngIf="isValidField('name') " 
+            class="form-text text-danger"
+          >
+            {{ getFieldError('name') }}
           </span>
 
-          <span class="form-text text-danger">
-            <!-- Debe de ser de 3 letras -->
-            This field requires a minimum of 3 letters.
-          </span>
         </div>
       </div>
 
@@ -39,7 +38,7 @@
             placeholder="Precio del producto"
             formControlName="price"
           />
-          <span class="form-text text-danger">
+          <span *ngIf="isValidField('price') " class="form-text text-danger">
             El precio debe de ser 0 o mayor
           </span>
         </div>
@@ -57,7 +56,7 @@
             formControlName="inStorage"
           />
 
-          <span class="form-text text-danger">
+          <span *ngIf="isValidField('price') " class="form-text text-danger">
             Las existencias deben de ser 0 o mayor
           </span>
         </div>
