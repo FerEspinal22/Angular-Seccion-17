@@ -35,9 +35,9 @@ export class DynamicPageComponent {
   getFieldError( field: string): string | null {
 
     // Si no viene el field, lo dejamos nulo
-    if (!this.myForm.controls[field] ) return null; 
+    if (!this.myForm.controls[field] ) return null;
 
-    // Si no viene regresamos un objeto vacio 
+    // Si no viene regresamos un objeto vacio
     const errors = this.myForm.controls[field].errors || {};
 
     // Extraer todas las llaves que vienen en los errors
@@ -47,7 +47,7 @@ export class DynamicPageComponent {
           return 'Este campo es requerido';
         case 'minlength':
           return `Se requieren ${ errors['minlength'].requiredLength } caracteres como mínimo.` ;
-      
+
         default:
           break;
       }
@@ -83,6 +83,8 @@ export class DynamicPageComponent {
     }
 
     console.log( this.myForm.value );
+    // ? Se pone as FormArray porque no sabe que es un arreglo.
+    (this.myForm.controls['favoriteGames'] as FormArray) = this.fb.array([]);
     this.myForm.reset();
   }
 }

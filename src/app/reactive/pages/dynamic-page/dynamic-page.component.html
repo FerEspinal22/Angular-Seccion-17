@@ -6,7 +6,7 @@
   <div class="mb-3 row">
     <label class="col-sm-3 col-form-label">Nombre</label>
     <div class="col-sm-9">
-      <input class="form-control" 
+      <input class="form-control"
         formControlName="name"
         placeholder="Nombre de la persona"
       />
@@ -22,10 +22,10 @@
     <div class="col-sm-9">
 
       <div class="input-group">
-        <input 
-          class="form-control" 
+        <input
+          class="form-control"
           [formControl]="newFavorite"
-          placeholder="Agregar favorito" 
+          placeholder="Agregar favorito"
         />
 
         <button (click)="onAddToFavorites()"
@@ -41,7 +41,7 @@
   <!-- Lista de Juegos Favoritos -->
   <div class="mb-3 row">
     <label class="col-sm-3 col-form-label">Favoritos</label>
-    <!-- ? formArrayName es para enlazar a un arreglo del formulario -->    
+    <!-- ? formArrayName es para enlazar a un arreglo del formulario -->
     <div class="col-sm-9" formArrayName="favoriteGames">
 
       <!-- Como no es el arreglo de controles, le ponemos .controls para poder acceder a ello. -->
@@ -51,9 +51,9 @@
           <!-- ? Con el form control enlazamos de forma dinamica -->
           <input [formControlName]="i" class="form-control" />
 
-          <button 
+          <button
             (click)="onDeleteFavorite(i)"
-            class="btn btn-outline-danger" 
+            class="btn btn-outline-danger"
             type="button"
           >
             Eliminar
@@ -80,13 +80,13 @@
 </form>
 
 <span>Valid</span>
-<pre>{{ "object" | json }}</pre>
+<pre>{{ myForm.valid | json }}</pre>
 <br />
 
 <span>Value</span>
-<pre>{{ "object" | json }}</pre>
+<pre>{{ myForm.value | json }}</pre>
 <br />
 
 <span>Agregar Juego</span>
-<pre>{{ "object" | json }}</pre>
-<pre>{{ "object" | json }}</pre>
+<pre>{{ newFavorite.valid| json }}</pre>
+<pre>{{ newFavorite.value| json }}</pre>
