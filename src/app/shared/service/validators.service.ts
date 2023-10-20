@@ -11,13 +11,13 @@ export class ValidatorsService {
 
     // ? El trim sirve para limpiar la posición adelante y atrás
     const value: string = control.value.trim().toLowerCase();
-  
+
     if (value === 'strider') {
       return {
         noStrider: true,
       }
     }
-  
+
     return null;
   }
 
